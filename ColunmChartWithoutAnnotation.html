@@ -1,0 +1,74 @@
+<html>
+  <head>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+
+var _GoogleCharts = function(period, takings, sales, teste) {
+
+google.charts.load('41', {packages: ['bar']});
+google.charts.setOnLoadCallback(drawChart);
+
+
+
+function drawChart() {
+  //console.log(Months[0])
+    var arr = [];
+        for(let i = 0; i<period.length;i++){   	
+            arr.push([period[i], takings[i],sales[i],teste[i]])
+        }
+    var data = new google.visualization.arrayToDataTable([
+        ['Period', 'Takings', 'Sales',{ role: 'annotation' }],
+        ...arr
+  ]);
+        console.log(arr)
+        var view = new google.visualization.DataView(data);
+      view.setColumns([0, 1,
+                       { calc: "stringify",
+                         sourceColumn: 1,
+                         type: "number",
+                         role: "annotation" },
+                       2]);        
+  var options = {
+    width: 900,
+    chart: {
+      title: 'Today vs Last Week / Month',
+    },
+    
+    vAxis: {format: 'decimal'},
+    series: {
+      0: {
+        axis: 'takings'
+      }, // Bind series 0 to an axis named 'takings'.
+      1: {
+        axis: 'sales'
+      } // Bind series 1 to an axis named 'sales'.
+    },
+    axes: {
+      y: {
+        takings: {
+          side : 'left',
+          label: 'takings'
+        }, // Left y-axis.
+        sales: {
+          side: 'right',
+          label: 'Sales'
+        } // Right y-axis.
+      }
+    }
+  };
+
+  var chart = new google.charts.Bar(document.getElementById('dual_y_div'));
+  chart.draw(view, google.charts.Bar.convertOptions(options));
+
+
+};
+}
+_GoogleCharts(["Today","P week", "P. Month", "P.Year"], [463,411,426,499], [2319.26,2052.69,2112.31,1894.75],[1,3,2,4])
+</script>
+</head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <script src="https://www.gstatic.com/charts/loader.js"></script>
+  </head>
+  <body>
+    <div id="dual_y_div" style="width: 900px; height: 500px;"></div>
+  </body>

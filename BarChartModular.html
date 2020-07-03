@@ -1,50 +1,70 @@
 <html>
   <head>
     <!--Load the AJAX API-->
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script
+      type="text/javascript"
+      src="https://www.gstatic.com/charts/loader.js"
+    ></script>
     <script type="text/javascript">
-    var _GoogleCharts = function(Months,Values) {
+      var _BarChartSales = function (name, sales) {
+        // Load the Visualization API and the corechart package.
+        google.charts.load("current", { packages: ["corechart"] });
 
-      // Load the Visualization API and the corechart package.
-      google.charts.load('current', {'packages':['corechart']});
+        // Set a callback to run when the Google Visualization API is loaded.
+        google.charts.setOnLoadCallback(drawChart);
 
-      // Set a callback to run when the Google Visualization API is loaded.
-      google.charts.setOnLoadCallback(drawChart);
+        // Callback that creates and populates a data table,
+        // instantiates the pie chart, passes in the data and
+        // draws it.
+        function drawChart() {
+          //   var months= ["feb","Mar", "Apr", "May", "Jun", "Jul", "Aug"];
+          //   var value=[30,45,32,70,40,40,40];
+          // Create the data table.
+          var data = new google.visualization.DataTable();
+          data.addColumn("string", "Names");
+          // console.log(name[0])  Testing if is showning the correct value
+          data.addColumn("number", "Sales");
+          //For each value passed, adding rows to the chart
+          for (var i = 0; i < name.length && i < sales.length; i++) {
+            data.addRows([[name[i], sales[i]]]);
+          }
 
-      // Callback that creates and populates a data table,
-      // instantiates the pie chart, passes in the data and
-      // draws it.
-      function drawChart() {
-        //   var months= ["feb","Mar", "Apr", "May", "Jun", "Jul", "Aug"];
-        //   var value=[30,45,32,70,40,40,40];
-        // Create the data table.
-        var data = new google.visualization.DataTable();
-        data.addColumn('string', 'Topping');
-        console.log(Months[0])
-        data.addColumn('number', 'Months');
-        for (var i = 0; i < Months.length && i<Values.length; i++) {
-             data.addRows([
-                 [   Months[i], Values[i]],
-                
-               ]);
-              }
+          // Set chart options
+          var options = {
+            title: "Sales by Category",
 
-        // Set chart options
-        var options = {'title':'Sales Status' ,
-                        'height':300,
-                        colors: ['red']
-                    
-                     };
-                   var chart = new google.visualization.ColumnChart(document.getElementById('chart_by_google'));
-                   chart.draw(data, options);
-      }
-    }
-   _GoogleCharts(["feb","Mar", "Apr", "May", "Jun", "Jul", "Aug"],[30,-20,-1,70,40,40,40]);
+            height: 700,
+            colors: ["red"],
+          };
+          //End of chart options
+          var chart = new google.visualization.ColumnChart(
+            document.getElementById("barChartGoogle")
+          );
+          chart.draw(data, options);
+        }
+      };
+      _BarChartSales(
+        [
+          "Hot food",
+          "Meals",
+          "Bread Rolls",
+          "Cakes",
+          "Multibuy cakes",
+          "Cold Takeaway",
+          "Celebration Cakes",
+          "Party Platters",
+          "Tea Coffe",
+          "Soup",
+          "Untagged",
+          "Misc",
+        ],
+        [626, -117.11, 242.35, 331.69, 0, 599.6, 0, 0, 206.2, 0, 210.7, 0]
+      );
     </script>
   </head>
 
   <body>
     <!--Div that will hold the pie chart-->
-    <div id="chart_by_google"></div>
+    <div id="barChartGoogle"></div>
   </body>
 </html>

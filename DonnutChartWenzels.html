@@ -1,0 +1,90 @@
+<html>
+  <head>
+    <script
+      type="text/javascript"
+      src="https://www.gstatic.com/charts/loader.js"
+    ></script>
+    <script type="text/javascript">
+      var _DounutCardCrediteOnline = function (name, sales) {
+        google.charts.load("current", { packages: ["corechart"] });
+        google.charts.setOnLoadCallback(drawChart);
+        function drawChart() {
+          // Here starts to savindo data in a array called arr
+          let arr = [];
+
+          for (let i = 0; i < name.length; i++) {
+            arr.push([name[i], sales[i]]);
+          }
+          //putting the data in chart to visualization
+          var data = google.visualization.arrayToDataTable([
+            ["name", "Sales"],
+            ...arr,
+          ]);
+          //Here starts the option of the chart, like title, size, and other
+          var options = {
+            title: "Cash vs Credit Card vc Online Apps",
+            pieHole: 0.6,
+          };
+          // ends of option
+          var chart = new google.visualization.PieChart(
+            document.getElementById("donutchart")
+          );
+          chart.draw(data, options);
+        }
+      };
+      //Calling the var with the function and passing data in parameters
+      _DounutCardCrediteOnline(
+        ["card", "cash", "app"],
+        [1794.26, 524.62, 314.65]
+      );
+
+      _DonutCashCard = function (name, sales) {
+        google.charts.load("current", { packages: ["corechart"] });
+        google.charts.setOnLoadCallback(drawChart);
+        function drawChart() {
+          // Here starts to savindo data in a array called arr
+
+          let arr = [];
+
+          for (let i = 0; i < name.length; i++) {
+            arr.push([name[i], sales[i]]);
+          }
+          var data = google.visualization.arrayToDataTable([
+            ["name", "Sales"],
+            ...arr,
+          ]);
+          //Here starts the option of the chart, like title, size, and other
+
+          var options = {
+            title: "Cash vs Credit Card vc Online Apps",
+            pieHole: 0.6,
+          };
+          // ends of optio
+          var chart = new google.visualization.PieChart(
+            document.getElementById("cashcard")
+          );
+          chart.draw(data, options);
+        }
+      };
+      //Calling the var with the function and passing data in parameters
+
+      _DonutCashCard(["card", "cash"], [1794.26, 524.62]);
+    </script>
+  </head>
+  <body>
+    <div
+      id="donutchart"
+      style="width: 900px; height: 500px; position: absolute; top: 20px;"
+    ></div>
+    <div
+      id="cashcard"
+      style="
+        width: 900px;
+        height: 500px;
+        position: absolute;
+        top: 20px;
+        left: 600px;
+      "
+    ></div>
+  </body>
+</html>

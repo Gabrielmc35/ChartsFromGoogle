@@ -17,7 +17,7 @@
           for (var i = 0; i < Sales.length; i++) {
             arr.push([Time[i],Sales[i], SalesPerWeek[i], SalesPerMonth[i], SalesPerYear[i]]);
           }
-          console.log(arr)
+
           var data = google.visualization.arrayToDataTable([
             ["Time","Sales", "Sales Prev Week", "Sales Prev Month", "Sales Prev Year"],
             ...arr,
