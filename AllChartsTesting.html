@@ -1,0 +1,274 @@
+<html>
+  <head>
+      
+    <script
+      type="text/javascript"
+      src="https://www.gstatic.com/charts/loader.js"
+    ></script>
+    <style>
+
+    </style>
+    <script type="text/javascript">
+      var AreaChartModular = function (dataAreaChart) {
+        google.charts.load("current", { packages: ["corechart"] });
+        google.charts.setOnLoadCallback(drawVisualization);
+
+        function drawVisualization() {
+          var arr = [];
+          // Printing in console the size of data, data is a object
+          console.log(Object.keys(dataAreaChart).length);
+          //Testing content in data
+          console.log(dataAreaChart);
+          // Some raw data (not necessarily accurate)
+          for (var i = 0; i < Object.keys(dataAreaChart).length; i++) {
+            arr.push([
+              dataAreaChart.Time[i],
+              dataAreaChart.Sales[i],
+              dataAreaChart.SalesPerWeek[i],
+              dataAreaChart.SalesPerMonth[i],
+              dataAreaChart.SalesPerYear[i],
+            ]);
+          }
+
+          console.log(dataAreaChart);
+          var draw = google.visualization.arrayToDataTable([
+            [
+              "Time",
+              "Sales",
+              "Sales Prev Week",
+              "Sales Prev Month",
+              "Sales Prev Year",
+            ],
+            ...arr,
+          ]);
+
+          var options = {
+            title: "Chart test for Wenzels",
+            vAxis: { title: "sales" },
+            hAxis: { title: "Time" },
+            height:500,
+            widgth:200,
+            seriesType: "area",
+            //Series:2 = Sales prev year
+            //Series:1 = Sales prev month
+            series: { 2: { type: "line" }, 1: { type: "line" } },
+          };
+
+          var chart = new google.visualization.ComboChart(
+            document.getElementById("chart_div")
+          );
+          chart.draw(draw, options);
+        }
+      };
+      var _BarChartSales = function (databarChartGoogle) {
+        // Load the Visualization API and the corechart package.
+        google.charts.load("current", { packages: ["corechart"] });
+
+        // Set a callback to run when the Google Visualization API is loaded.
+        google.charts.setOnLoadCallback(drawChart);
+
+        // Callback that creates and populates a data table,
+        // instantiates the pie chart, passes in the data and
+        // draws it.
+        function drawChart() {
+          //   var months= ["feb","Mar", "Apr", "May", "Jun", "Jul", "Aug"];
+          //   var value=[30,45,32,70,40,40,40];
+          // Create the data table.
+          console.log(databarChartGoogle.Name.length);
+
+          var data = new google.visualization.DataTable();
+          data.addColumn("string", "Names");
+          // console.log(name[0])  Testing if is showning the correct value
+          data.addColumn("number", "Sales");
+          //Gets the quantity of values in each object
+          var sizeOfContent = databarChartGoogle.Name.length;
+
+          //For each value passed, adding rows to the chart
+          for (var i = 0; i < sizeOfContent; i++) {
+            data.addRows([
+              [databarChartGoogle.Name[i], databarChartGoogle.Sales[i]],
+            ]);
+          }
+
+          // Set chart options
+          var options = {
+            title: "Sales by Category",
+
+            height: 500,
+            width:900,
+            colors: ["red"],
+          };
+          //End of chart options
+          var chart = new google.visualization.ColumnChart(
+            document.getElementById("barChartGoogle")
+          );
+          chart.draw(data, options);
+        }
+      };
+      var ColunmChart = function (dataColunmChart) {
+        google.charts.load("current", { packages: ["bar"] });
+        google.charts.setOnLoadCallback(drawChart);
+
+        function drawChart() {
+          //Testing values in object
+          console.log(dataColunmChart);
+          var sizeOfColunmChart = dataColunmChart.Period.length;
+          //Saving size of object in a var to use as paramter in loops
+          console.log(sizeOfColunmChart);
+          var arr = [];
+          for (let i = 0; i < sizeOfColunmChart; i++) {
+            arr.push([
+              dataColunmChart.Period[i],
+              dataColunmChart.Takings[i],
+              dataColunmChart.Sales[i],
+            ]);
+          }
+          var data = new google.visualization.arrayToDataTable([
+            ["Period", "Takings", "Sales"],
+            ...arr,
+          ]);
+          console.log(arr);
+          var view = new google.visualization.DataView(data);
+          view.setColumns([
+            0,
+            1,
+            {
+              calc: "stringify",
+              sourceColumn: 1,
+              type: "number",
+              role: "annotation",
+            },
+            2,
+          ]);
+          var options = {
+            width: 900,
+            height:500,
+            
+            chart: {
+              title: "Today vs Last Week / Month",
+            },
+
+            vAxis: { format: "decimal" },
+            series: {
+              0: {
+                axis: "takings",
+              }, // Bind series 0 to an axis named 'takings'.
+              1: {
+                axis: "sales",
+              }, // Bind series 1 to an axis named 'sales'.
+            },
+            axes: {
+              y: {
+                takings: {
+                  side: "left",
+                  label: "takings",
+                }, // Left y-axis.
+                sales: {
+                  side: "right",
+                  label: "Sales",
+                }, // Right y-axis.
+              },
+            },
+          };
+          var chart = new google.charts.Bar(
+            document.getElementById("ColunmChart")
+          );
+          chart.draw(view, google.charts.Bar.convertOptions(options));
+        }
+      };
+
+      var dataColunmChart = {
+        Period: ["Today", "P week", "P. Month", "P.Year"],
+        Takings: [463, 411, 426, 499],
+        Sales: [2319.26, 2052.69, 2112.31, 1894.75],
+      };
+
+      var dataAreaChart = {
+        Time: ["07:00", "08:00", "09:00", " 10:00"],
+        Sales: [199, 194, 212, 169],
+        SalesPerWeek: [169, 200, 201, 156],
+        SalesPerMonth: [215, 215, 171, 155],
+        SalesPerYear: [225, 246, 227, 198],
+      };
+
+      var databarChartGoogle = {
+        Name: [
+          "Hot food",
+          "Meals",
+          "Bread Rolls",
+          "Cakes",
+          "Multibuy cakes",
+          "Cold Takeaway",
+          "Celebration Cakes",
+          "Party Platters",
+          "Tea Coffe",
+          "Soup",
+          "Untagged",
+          "Misc",
+        ],
+        Sales: [
+          626,
+          -117.11,
+          242.35,
+          331.69,
+          0,
+          599.6,
+          0,
+          0,
+          206.2,
+          0,
+          210.7,
+          0,
+        ],
+      };
+      console.log(databarChartGoogle);
+      //var EchGraph = function (name) {
+      var EchGraph = function (name) {
+        var nameWithoutSpaces = name.trim();
+        //removing spaces in beginning  and ending of string to prevents user error
+        console.log(nameWithoutSpaces);
+        // AreaChartModular(dataAreaChart);
+        // _BarChartSales(databarChartGoogle);
+        // ColunmChart(dataColunmChart);
+        console.log(nameWithoutSpaces);
+        switch (nameWithoutSpaces) {
+          case "area":
+          case "Area":
+            AreaChartModular(dataAreaChart);
+            break;
+          case "colunm":
+          case "Colunm":
+            ColunmChart(dataColunmChart);
+
+            //    console.log(ColunmChart.id)
+
+            break;
+          case "bar":
+          case "Bar":
+            _BarChartSales(databarChartGoogle);
+            break;
+
+          default:
+            console.log(`Sorry, we are out of graphs with name :  ${name}.`);
+        }
+      };
+      var colunm = "colunm";
+      //console.log(data)
+      //EchGraph(chart);
+      // GoogleCharts(data);
+      var area = "area";
+      var bar = "bar";
+    </script>
+  </head>
+  <body>
+    <button onclick="  EchGraph(area)  " style="background-color: grey; width: 100px; height: 100px; color: blue;">Area Chart</button>
+    <button onclick="EchGraph(bar)  " style="background-color: greenyellow; width: 100px; height: 100px;">Bar Chart</button>
+    <button onclick="EchGraph(colunm)  " style="background-color: orphans: ;; width: 100px; height: 100px;">ColunmChart</button>
+<div class="Teste"></div>
+    <div  id="chart_div" "></div>
+    <div id="barChartGoogle" "></div>
+  
+
+    <div id="ColunmChart" "></div>
+  </body>
+</html>
