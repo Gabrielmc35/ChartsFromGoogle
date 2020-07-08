@@ -63,7 +63,7 @@
         }
       };
     
-      var _BarChartSales = function (databarChartGoogle) {
+      var BarChartSales = function (databarChartGoogle) {
         // Load the Visualization API and the corechart package.
         google.charts.load("current", { packages: ["corechart"] });
 
@@ -179,7 +179,7 @@
           chart.draw(view, google.charts.Bar.convertOptions(options));
         }
       };
-      var  _DonutCashCard = function (dataDonutCashCardChart) {
+      var  DonutCashCard = function (dataDonutCashCardChart) {
         google.charts.load("current", { packages: ["corechart"] });
         google.charts.setOnLoadCallback(drawChart);
         function drawChart() {
@@ -211,7 +211,7 @@
         }
       };
 
-      var _DounutCardCrediteOnline = function (dataDonutCardCredtOnline) {
+      var DounutCardCrediteOnline = function (dataDonutCardCredtOnline) {
         google.charts.load("current", { packages: ["corechart"] });
         google.charts.setOnLoadCallback(drawChart);
         function drawChart() {
@@ -245,9 +245,9 @@
       
       return {
         chartArea: AreaChartModular,
-        barChart:_BarChartSales,
-        donutChartCardCreditOnline:_DounutCardCrediteOnline,
-        donutChartCashCard: _DonutCashCard,
+        barChart:BarChartSales,
+        donutChartCardCreditOnline:DounutCardCrediteOnline,
+        donutChartCashCard: DonutCashCard,
         colunmChart:ColunmChart,
         };
       }
