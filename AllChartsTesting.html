@@ -9,7 +9,8 @@
 
     </style>
     <script type="text/javascript">
-    function EchChart() {
+    var EchChart = function(){
+    
       var AreaChartModular = function (dataAreaChart) {
         google.charts.load("current", { packages: ["corechart"] });
         google.charts.setOnLoadCallback(drawVisualization);
