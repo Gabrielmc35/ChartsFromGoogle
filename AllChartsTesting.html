@@ -9,6 +9,7 @@
 
     </style>
     <script type="text/javascript">
+    function EchChart() {
       var AreaChartModular = function (dataAreaChart) {
         google.charts.load("current", { packages: ["corechart"] });
         google.charts.setOnLoadCallback(drawVisualization);
@@ -60,6 +61,7 @@
           chart.draw(draw, options);
         }
       };
+    
       var _BarChartSales = function (databarChartGoogle) {
         // Load the Visualization API and the corechart package.
         google.charts.load("current", { packages: ["corechart"] });
@@ -176,7 +178,78 @@
           chart.draw(view, google.charts.Bar.convertOptions(options));
         }
       };
+      var  _DonutCashCard = function (dataDonutCashCardChart) {
+        google.charts.load("current", { packages: ["corechart"] });
+        google.charts.setOnLoadCallback(drawChart);
+        function drawChart() {
+          // Here starts to savindo data in a array called arr
 
+          let arr = [];
+          var sizeOfDonutChart= dataDonutCashCardChart.Name.length;
+            console.log(sizeOfDonutChart);
+          for (let i = 0; i < sizeOfDonutChart; i++) {
+            arr.push([dataDonutCashCardChart.Name[i], dataDonutCashCardChart.Cash[i]]);
+          }
+          var data = google.visualization.arrayToDataTable([
+            ["name", "Sales"],
+            ...arr,
+          ]);
+          //Here starts the option of the chart, like title, size, and other
+
+          var options = {
+            title: "Cash vs Credit Card vc Online Apps",
+            pieHole: 0.3,
+            widgth:500, 
+            height:300, 
+          };
+          // ends of optio
+          var chart = new google.visualization.PieChart(
+            document.getElementById("cashcard")
+          );
+          chart.draw(data, options);
+        }
+      };
+
+      var _DounutCardCrediteOnline = function (dataDonutCardCredtOnline) {
+        google.charts.load("current", { packages: ["corechart"] });
+        google.charts.setOnLoadCallback(drawChart);
+        function drawChart() {
+          // Here starts to savindo data in a array called arr
+          let arr = [];
+          var sizeOfDonutChart= dataDonutCardCredtOnline.Name.length;
+          console.log(sizeOfDonutChart);
+          for (let i = 0; i < sizeOfDonutChart; i++) {
+            arr.push([dataDonutCardCredtOnline.Name[i], dataDonutCardCredtOnline.Sales[i]]);
+          }
+          //putting the data in chart to visualization
+          var data = google.visualization.arrayToDataTable([
+            ["name", "Sales"],
+            ...arr,
+          ]);
+          //Here starts the option of the chart, like title, size, and other
+          var options = {
+            widgth:500, 
+            height:300, 
+            title: "Cash vs Credit Card vc Online Apps",
+            pieHole: 0.3,
+          };
+          // ends of option
+          var chart = new google.visualization.PieChart(
+            document.getElementById("CardCrediteOnlineDonut")
+          );
+          chart.draw(data, options);
+        }
+      };    
+
+      
+      return {
+        chartArea: AreaChartModular,
+        barChart:_BarChartSales,
+        donutChartCardCreditOnline:_DounutCardCrediteOnline,
+        donutChartCashCard: _DonutCashCard,
+        colunmChart:ColunmChart,
+        };
+      }
       var dataColunmChart = {
         Period: ["Today", "P week", "P. Month", "P.Year"],
         Takings: [463, 411, 426, 499],
@@ -225,37 +298,7 @@
       //var EchGraph = function (name) {
 
 
-        var _DounutCardCrediteOnline = function (dataDonutCardCredtOnline) {
-        google.charts.load("current", { packages: ["corechart"] });
-        google.charts.setOnLoadCallback(drawChart);
-        function drawChart() {
-          // Here starts to savindo data in a array called arr
-          let arr = [];
-          var sizeOfDonutChart= dataDonutCardCredtOnline.Name.length;
-          console.log(sizeOfDonutChart);
-          for (let i = 0; i < sizeOfDonutChart; i++) {
-            arr.push([dataDonutCardCredtOnline.Name[i], dataDonutCardCredtOnline.Sales[i]]);
-          }
-          //putting the data in chart to visualization
-          var data = google.visualization.arrayToDataTable([
-            ["name", "Sales"],
-            ...arr,
-          ]);
-          //Here starts the option of the chart, like title, size, and other
-          var options = {
-            widgth:500, 
-            height:300, 
-            title: "Cash vs Credit Card vc Online Apps",
-            pieHole: 0.3,
-          };
-          // ends of option
-          var chart = new google.visualization.PieChart(
-            document.getElementById("CardCrediteOnlineDonut")
-          );
-          chart.draw(data, options);
-        }
-      };    
-
+        
 
        var dataDonutCardCredtOnline = {
            Name:["card", "cash", "app"],
@@ -263,37 +306,7 @@
        ,};
 
 
-      _DonutCashCard = function (dataDonutCashCardChart) {
-        google.charts.load("current", { packages: ["corechart"] });
-        google.charts.setOnLoadCallback(drawChart);
-        function drawChart() {
-          // Here starts to savindo data in a array called arr
 
-          let arr = [];
-          var sizeOfDonutChart= dataDonutCashCardChart.Name.length;
-            console.log(sizeOfDonutChart);
-          for (let i = 0; i < sizeOfDonutChart; i++) {
-            arr.push([dataDonutCashCardChart.Name[i], dataDonutCashCardChart.Cash[i]]);
-          }
-          var data = google.visualization.arrayToDataTable([
-            ["name", "Sales"],
-            ...arr,
-          ]);
-          //Here starts the option of the chart, like title, size, and other
-
-          var options = {
-            title: "Cash vs Credit Card vc Online Apps",
-            pieHole: 0.3,
-            widgth:500, 
-            height:300, 
-          };
-          // ends of optio
-          var chart = new google.visualization.PieChart(
-            document.getElementById("cashcard")
-          );
-          chart.draw(data, options);
-        }
-      };
 
       var dataDonutCashCardChart = {
           Name:["card", "cash"],
@@ -311,23 +324,25 @@
         switch (nameWithoutSpaces) {
           case "area":
           case "Area":
-            AreaChartModular(dataAreaChart);
+          EchChart().chartArea(dataAreaChart);
             break;
           case "colunm":
           case "Colunm":
-            ColunmChart(dataColunmChart);
-
+          //  ColunmChart(dataColunmChart);
+            EchChart().colunmChart(dataColunmChart);
             //    console.log(ColunmChart.id)
 
             break;
           case "bar":
           case "Bar":
-            _BarChartSales(databarChartGoogle);
+          EchChart().barChart(databarChartGoogle);
             break;
             case "Donut":
             case"donut":
-            _DonutCashCard(dataDonutCashCardChart);
-            _DounutCardCrediteOnline(dataDonutCardCredtOnline)
+            EchChart().donutChartCardCreditOnline(dataDonutCardCredtOnline)
+         //   _DonutCashCard(dataDonutCashCardChart);
+          EchChart().donutChartCashCard(dataDonutCashCardChart)
+          //  _DounutCardCrediteOnline(dataDonutCardCredtOnline)
             break;
           default:
         
