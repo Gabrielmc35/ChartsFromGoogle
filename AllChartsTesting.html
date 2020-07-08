@@ -11,7 +11,7 @@
     <script type="text/javascript">
     var EchChart = function(){
     
-      var AreaChartModular = function (dataAreaChart) {
+      var AreaChartModular = function (data, htmmlcontent) {
         google.charts.load("current", { packages: ["corechart"] });
         google.charts.setOnLoadCallback(drawVisualization);
 
@@ -57,13 +57,13 @@
           };
 
           var chart = new google.visualization.ComboChart(
-            document.getElementById("chart_div")
+            document.getElementById(htmmlcontent)
           );
           chart.draw(draw, options);
         }
       };
     
-      var BarChartSales = function (databarChartGoogle) {
+      var BarChartSales = function (data, htmmlcontent) {
         // Load the Visualization API and the corechart package.
         google.charts.load("current", { packages: ["corechart"] });
 
@@ -108,7 +108,7 @@
           chart.draw(data, options);
         }
       };
-      var ColunmChart = function (dataColunmChart) {
+      var ColunmChart = function (data,htmmlcontent) {
         google.charts.load("current", { packages: ["bar"] });
         google.charts.setOnLoadCallback(drawChart);
 
@@ -179,7 +179,7 @@
           chart.draw(view, google.charts.Bar.convertOptions(options));
         }
       };
-      var  DonutCashCard = function (dataDonutCashCardChart) {
+      var  DonutCashCard = function (data, htmmlcontent) {
         google.charts.load("current", { packages: ["corechart"] });
         google.charts.setOnLoadCallback(drawChart);
         function drawChart() {
@@ -325,24 +325,24 @@
         switch (nameWithoutSpaces) {
           case "area":
           case "Area":
-          EchChart().chartArea(dataAreaChart);
+          EchChart().chartArea(dataAreaChart, "areaChart")
             break;
           case "colunm":
           case "Colunm":
           //  ColunmChart(dataColunmChart);
-            EchChart().colunmChart(dataColunmChart);
+            EchChart().colunmChart(dataColunmChart,"ColunmChart");
             //    console.log(ColunmChart.id)
 
             break;
           case "bar":
           case "Bar":
-          EchChart().barChart(databarChartGoogle);
+          EchChart().barChart(databarChartGoogle,"barChartGoogle");
             break;
             case "Donut":
             case"donut":
-            EchChart().donutChartCardCreditOnline(dataDonutCardCredtOnline)
+            EchChart().donutChartCardCreditOnline(dataDonutCardCredtOnline,"CardCrediteOnlineDonut")
          //   _DonutCashCard(dataDonutCashCardChart);
-          EchChart().donutChartCashCard(dataDonutCashCardChart)
+          EchChart().donutChartCashCard(dataDonutCashCardChart,"cashcard")
           //  _DounutCardCrediteOnline(dataDonutCardCredtOnline)
             break;
           default:
@@ -368,7 +368,7 @@
     <button onclick="EchGraph(donut.trim())  " style="background-color: green: ;; width: 100px; height: 100px;">DonutChart</button>
 
     <div class="Teste"></div>
-    <div  id="chart_div" "></div>
+    <div  id="areaChart" "></div>
     <div id="barChartGoogle"></div>
     <div id="ColunmChart" "></div>
     <div id="cashcard" "></div>
