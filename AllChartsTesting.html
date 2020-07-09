@@ -10,10 +10,11 @@
     </style>
     <script type="text/javascript">
     
-    //START OF CLASS ECHCHART
-    var EchChart = function(){
-    //START OF AREACHART FUNCTION
-      var AreaChartModular = function (data, htmmlcontent) {
+    //begin::EchChart Function
+    "use strict";
+    var EchChart = ( function(){
+    //begin::AreaChartModular
+      var _AreaChartModular = function (data, elementId, options) {
         google.charts.load("current", { packages: ["corechart"] });
         google.charts.setOnLoadCallback(drawVisualization);
 
@@ -46,7 +47,9 @@
             ...arr,
           ]);
 
-          var options = {
+          if(!options){
+            console.log("without options, using default values in:AreaCharts")
+          options = {
             title: "Chart test for Wenzels",
             vAxis: { title: "sales" },
             hAxis: { title: "Time" },
@@ -58,16 +61,17 @@
             series: { 2: { type: "line" }, 1: { type: "line" } },
           };
 
+          }
           var chart = new google.visualization.ComboChart(
-            document.getElementById(htmmlcontent)
+            document.getElementById(elementId)
           );
           chart.draw(draw, options);
         }
       };
-    //END OF AREA CHART FUNCTION
+     //end::AreaChartModular
 
-    //START OF BAR CHART FUNCTION
-      var BarChartSales = function (data, htmmlcontent) {
+    //begin::BarChartSales
+      var _BarChartSales = function (data, elementId, options) {
         // Load the Visualization API and the corechart package.
         google.charts.load("current", { packages: ["corechart"] });
 
@@ -81,42 +85,50 @@
           //   var months= ["feb","Mar", "Apr", "May", "Jun", "Jul", "Aug"];
           //   var value=[30,45,32,70,40,40,40];
           // Create the data table.
-          console.log(databarChartGoogle.Name.length);
-
+          console.log(databarChart.Name.length);
+          console.log(options);
           var data = new google.visualization.DataTable();
           data.addColumn("string", "Names");
           // console.log(name[0])  Testing if is showning the correct value
           data.addColumn("number", "Sales");
           //Gets the quantity of values in each object
-          var sizeOfContent = databarChartGoogle.Name.length;
+          var sizeOfContent = databarChart.Name.length;
 
           //For each value passed, adding rows to the chart
           for (var i = 0; i < sizeOfContent; i++) {
             data.addRows([
-              [databarChartGoogle.Name[i], databarChartGoogle.Sales[i]],
+              [databarChart.Name[i], databarChart.Sales[i]],
             ]);
           }
 
           // Set chart options
-          var options = {
-            title: "Sales by Category",
+
+          if(!options)
+          {
+
+            console.log("Without options value, using default in : barCharts");
+            options = {
+            title: "Sales by Category testing",
 
             height: 500,
             width:900,
             colors: ["red"],
           };
+          }
+         
           //End of chart options
           var chart = new google.visualization.ColumnChart(
-            document.getElementById("barChartGoogle")
+            document.getElementById(elementId)
           );
           chart.draw(data, options);
         }
       };
-      //END OF BAR CHART FUNCTION
+        //end::BarChartSales
+
       
 
-      //START OF COLUNMCHART FUNCTION
-      var ColunmChart = function (data,htmmlcontent) {
+      //begin::ColunmChart
+      var _ColunmChart = function (data,elementId,options) {
         google.charts.load("current", { packages: ["bar"] });
         google.charts.setOnLoadCallback(drawChart);
 
@@ -133,7 +145,7 @@
               dataColunmChart.Takings[i],
               dataColunmChart.Sales[i],
             ]);
-          }
+          }//end::  for (let i = 0; i < sizeOfColunmChart; i++)
           var data = new google.visualization.arrayToDataTable([
             ["Period", "Takings", "Sales"],
             ...arr,
@@ -151,7 +163,10 @@
             },
             2,
           ]);
-          var options = {
+          if(!options){
+            console.log("Without values, using default, fuc:colunmChart");
+            console.log('yoho');
+           options = {
             width: 900,
             height:500,
             
@@ -181,16 +196,18 @@
               },
             },
           };
+          }
           var chart = new google.charts.Bar(
-            document.getElementById("ColunmChart")
+            document.getElementById(elementId)
           );
           chart.draw(view, google.charts.Bar.convertOptions(options));
         }
       };
-      // END OF COLUNM CHART FUNCTION
+      //end::ColunmChart
+
       
-      //START OF DONUTCASHCARD FUNCTION
-      var  DonutCashCard = function (data, htmmlcontent) {
+     //begin::DonutCashCard
+      var  _DonutCashCard = function (data, elementId,options) {
         google.charts.load("current", { packages: ["corechart"] });
         google.charts.setOnLoadCallback(drawChart);
         function drawChart() {
@@ -208,23 +225,28 @@
           ]);
           //Here starts the option of the chart, like title, size, and other
 
-          var options = {
+          if(!options){
+            console.log('without value in options, using default values in:DonutCashCard');
+
+           options = {
             title: "Cash vs Credit Card vc Online Apps",
             pieHole: 0.3,
             widgth:500, 
             height:300, 
           };
+          }
           // ends of optio
           var chart = new google.visualization.PieChart(
-            document.getElementById("cashcard")
+            document.getElementById(elementId)
           );
           chart.draw(data, options);
         }
       };
-      //END OF DONUTCASHCARD FUNCTION
+     //end::DonutCashCard
 
-      //START OF DONUTCARDCREDT CHART FUNCTION
-      var DounutCardCrediteOnline = function (dataDonutCardCredtOnline) {
+
+      //begin::DonutCardCrediteOnline
+      var _DounutCardCrediteOnline = function (dataDonutCardCredtOnline, elementId,options) {
         google.charts.load("current", { packages: ["corechart"] });
         google.charts.setOnLoadCallback(drawChart);
         function drawChart() {
@@ -241,42 +263,61 @@
             ...arr,
           ]);
           //Here starts the option of the chart, like title, size, and other
-          var options = {
+          if(!options){
+            console.log('without value in options, using default values in:_DounutCardCrediteOnline');
+           options = {
             widgth:500, 
             height:300, 
             title: "Cash vs Credit Card vc Online Apps",
             pieHole: 0.3,
           };
+          }
           // ends of option
           var chart = new google.visualization.PieChart(
-            document.getElementById("CardCrediteOnlineDonut")
+            document.getElementById(elementId)
           );
           chart.draw(data, options);
         }
       };    
-      //END OF DONUTCARDCREDIT CHART FUNCTION
+      //end::DonutCardCrediteOnline
       
-      //returning the charts as object in EchChart
+      //begin::return of EachChart
       return {
-        chartArea: AreaChartModular,
-        barChart:BarChartSales,
-        donutChartCardCreditOnline:DounutCardCrediteOnline,
-        donutChartCashCard: DonutCashCard,
-        colunmChart:ColunmChart,
+        
+        barChart:function BarChartSales(data, elementId,options){
+          _BarChartSales(data,elementId,options);
+        },
+        donutChartCardCreditOnline: function DounutCardCrediteOnline(data,elementId,options){
+          _DounutCardCrediteOnline(data,elementId,options);
+        },
+        donutChartCashCard: function DonutCashCard(data,elementId,options){
+          _DonutCashCard(data,elementId,options);
+        },
+        colunmChart: function ColunmChart(data,elementId,options) {
+          _ColunmChart(data,elementId,options);  
+        },
+        chartArea: function AreaChartModular(data,elementId,options) {
+          _AreaChartModular(data,elementId,options);
+
+        },
         };
-      }
-      //END OF ECHCHART CLASS
+        //end::Return of EachChart
+      })();
+      //end::eachChart Function
       
       
-      //colunm data
+      ////begin::dataColunmChart
       var dataColunmChart = {
         Period: ["Today", "P week", "P. Month", "P.Year"],
         Takings: [463, 411, 426, 499],
         Sales: [2319.26, 2052.69, 2112.31, 1894.75],
       };
-      //end of colunm data
+      //end::dataColunmChart
 
-      //area data
+  
+
+
+      ////begin::dataAreaChart
       var dataAreaChart = {
         Time: ["07:00", "08:00", "09:00", " 10:00"],
         Sales: [199, 194, 212, 169],
@@ -284,10 +325,11 @@
         SalesPerMonth: [215, 215, 171, 155],
         SalesPerYear: [225, 246, 227, 198],
       };
-      //end of areaData
+         //end::dataAreaChart
 
-      //Bar data
-      var databarChartGoogle = {
+
+      ////begin::dataBarChart
+      var databarChart= {
         Name: [
           "Hot food",
           "Meals",
@@ -317,30 +359,116 @@
           0,
         ],
       };
-      //End of bar chart
-      //console.log(databarChartGoogle);
-      //var EchGraph = function (name) {
+      //end::databarChart
+
+
 
 
         
-       //DonutCardCredit data 
-       var dataDonutCardCredtOnline = {
+       //begin::dataDonutCardCrediteOnline Data
+       var dataDonutCardCreditOnline = {
            Name:["card", "cash", "app"],
            Sales: [1794.26, 524.62, 314.65]
        };
-        //End of donutcardcredit data
+       //end::dataDonutCardCrediteOnline
 
 
-       //DonutCashCardCredit data 
+       //begin::dataDonutCashCardChart
       var dataDonutCashCardChart = {
           Name:["card", "cash"],
           Cash:[1794.26, 524.62],};
-        //End of donutcashcardcredit data
+       //end::dataDonutCasCardChart
+
+        //begin::variables with options
+
+        //begin::bar options
+        var barOptions = {
+            title: "Sales by Category testing",
+
+            height: 500,
+            width:900,
+            colors: ["orange"],
+          };
+          //end:bar options
+
+          //begin::DonutCardChartCredtOnline optiopns
+        var donutChartCardCreditOnlineOptions ={
+            widgth:500, 
+            height:300, 
+            title: "Cash vs Credit Card vc Online Apps",
+            pieHole: 0.3,
+          };
+          //end::donutChartCardCreditonline
 
 
+          //begin::donutChartCashCard
+          var donutChartCashCardOptions = {
+            widgth:500, 
+            height:300, 
+            title: "Cash vs Credit Card Apps",
+            pieHole: 0.3,
+          };  
+          //end::donutChartCashCard options
+
+          //begin::colunmOptions
+          var colunmOptions = {
+            width: 900,
+            height:500,
+            
+            chart: {
+              title: "Today vs Last Week / Month",
+            },
+
+            vAxis: { format: "decimal" },
+            series: {
+              0: {
+                axis: "takings",
+              }, // Bind series 0 to an axis named 'takings'.
+              1: {
+                axis: "sales",
+              }, // Bind series 1 to an axis named 'sales'.
+            },
+            axes: {
+              y: {
+                takings: {
+                  side: "left",
+                  label: "takings",
+                }, // Left y-axis.
+                sales: {
+                  side: "right",
+                  label: "Sales",
+                }, // Right y-axis.
+              },
+            },
+          };
+          //end:: colunmOptions
+
+          //begin::areaOptions
+          var areaOptions = {
+            title: "Chart test for Wenzels",
+            vAxis: { title: "sales" },
+            hAxis: { title: "Time" },
+            height:500,
+            widgth:200,
+            seriesType: "area",
+            //Series:2 = Sales prev year
+            //Series:1 = Sales prev month
+            series: { 2: { type: "line" }, 1: { type: "line" } },
+          };
+          //end::areaOptions
+          
+        
+
+        EchChart.colunmChart(dataColunmChart,"ColunmChart",colunmOptions);
+        EchChart.barChart(databarChart,"barChartGoogle", barOptions);
+        EchChart.donutChartCashCard(dataDonutCashCardChart, "cashcard",donutChartCashCardOptions);
+        EchChart.donutChartCardCreditOnline(dataDonutCardCreditOnline,"CardCrediteOnlineDonut",donutChartCardCreditOnlineOptions);
+        EchChart.chartArea(dataAreaChart,"areaChart",areaOptions);
+
+/*
       //Function to call the charts in a switch, each case referes to a button
       var EchGraph = function (name) {
-        //.trim is used to remove spaces in string
+        //.trim is used to remove spaces in str
         var nameWithoutSpaces = name.trim();
         //removing spaces in beginning  and ending of string to prevents user error
         console.log(nameWithoutSpaces);
@@ -383,26 +511,23 @@
       //EchGraph(chart);
       // GoogleCharts(data);
       var area = "  area";
-      var bar = "bar";
+      var bar = "bar ";
       var donut = "donut";
      
       //_DounutCardCrediteOnline(dataDonutCardCredtOnline);
+      */
     </script>
   </head>
   <body>
     
     
-    <button onclick="  EchGraph(area.trim()  " style="background-color: grey; width: 100px; height: 100px; color: blue;">Area Chart</button>
-    <button onclick="EchGraph(bar.trim())  " style="background-color: greenyellow; width: 100px; height: 100px;">Bar Chart</button>
-    <button onclick="EchGraph(colunm.trim())  " style="background-color: orphans: ;; width: 100px; height: 100px;">ColunmChart</button>
-    <button onclick="EchGraph(donut.trim())  " style="background-color: green: ;; width: 100px; height: 100px;">DonutChart</button>
 
-    <div class="Teste"></div>
+
+    
     <div  id="areaChart" "></div>
     <div id="barChartGoogle"></div>
     <div id="ColunmChart" "></div>
     <div id="cashcard" "></div>
-    
     <div id="CardCrediteOnlineDonut"></div>
   </body>
 </html>
