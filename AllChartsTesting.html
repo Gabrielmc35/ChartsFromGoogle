@@ -9,8 +9,10 @@
 
     </style>
     <script type="text/javascript">
-    var EchChart = function(){
     
+    //START OF CLASS ECHCHART
+    var EchChart = function(){
+    //START OF AREACHART FUNCTION
       var AreaChartModular = function (data, htmmlcontent) {
         google.charts.load("current", { packages: ["corechart"] });
         google.charts.setOnLoadCallback(drawVisualization);
@@ -62,7 +64,9 @@
           chart.draw(draw, options);
         }
       };
-    
+    //END OF AREA CHART FUNCTION
+
+    //START OF BAR CHART FUNCTION
       var BarChartSales = function (data, htmmlcontent) {
         // Load the Visualization API and the corechart package.
         google.charts.load("current", { packages: ["corechart"] });
@@ -108,6 +112,10 @@
           chart.draw(data, options);
         }
       };
+      //END OF BAR CHART FUNCTION
+      
+
+      //START OF COLUNMCHART FUNCTION
       var ColunmChart = function (data,htmmlcontent) {
         google.charts.load("current", { packages: ["bar"] });
         google.charts.setOnLoadCallback(drawChart);
@@ -179,6 +187,9 @@
           chart.draw(view, google.charts.Bar.convertOptions(options));
         }
       };
+      // END OF COLUNM CHART FUNCTION
+      
+      //START OF DONUTCASHCARD FUNCTION
       var  DonutCashCard = function (data, htmmlcontent) {
         google.charts.load("current", { packages: ["corechart"] });
         google.charts.setOnLoadCallback(drawChart);
@@ -210,7 +221,9 @@
           chart.draw(data, options);
         }
       };
+      //END OF DONUTCASHCARD FUNCTION
 
+      //START OF DONUTCARDCREDT CHART FUNCTION
       var DounutCardCrediteOnline = function (dataDonutCardCredtOnline) {
         google.charts.load("current", { packages: ["corechart"] });
         google.charts.setOnLoadCallback(drawChart);
@@ -241,8 +254,9 @@
           chart.draw(data, options);
         }
       };    
-
+      //END OF DONUTCARDCREDIT CHART FUNCTION
       
+      //returning the charts as object in EchChart
       return {
         chartArea: AreaChartModular,
         barChart:BarChartSales,
@@ -251,12 +265,18 @@
         colunmChart:ColunmChart,
         };
       }
+      //END OF ECHCHART CLASS
+      
+      
+      //colunm data
       var dataColunmChart = {
         Period: ["Today", "P week", "P. Month", "P.Year"],
         Takings: [463, 411, 426, 499],
         Sales: [2319.26, 2052.69, 2112.31, 1894.75],
       };
+      //end of colunm data
 
+      //area data
       var dataAreaChart = {
         Time: ["07:00", "08:00", "09:00", " 10:00"],
         Sales: [199, 194, 212, 169],
@@ -264,7 +284,9 @@
         SalesPerMonth: [215, 215, 171, 155],
         SalesPerYear: [225, 246, 227, 198],
       };
+      //end of areaData
 
+      //Bar data
       var databarChartGoogle = {
         Name: [
           "Hot food",
@@ -295,25 +317,30 @@
           0,
         ],
       };
-      console.log(databarChartGoogle);
+      //End of bar chart
+      //console.log(databarChartGoogle);
       //var EchGraph = function (name) {
 
 
         
-
+       //DonutCardCredit data 
        var dataDonutCardCredtOnline = {
            Name:["card", "cash", "app"],
            Sales: [1794.26, 524.62, 314.65]
-       ,};
+       };
+        //End of donutcardcredit data
 
 
-
-
+       //DonutCashCardCredit data 
       var dataDonutCashCardChart = {
           Name:["card", "cash"],
           Cash:[1794.26, 524.62],};
+        //End of donutcashcardcredit data
 
+
+      //Function to call the charts in a switch, each case referes to a button
       var EchGraph = function (name) {
+        //.trim is used to remove spaces in string
         var nameWithoutSpaces = name.trim();
         //removing spaces in beginning  and ending of string to prevents user error
         console.log(nameWithoutSpaces);
@@ -350,6 +377,7 @@
             console.log(`Sorry, we are out of graphs with name :  ${name}.`);
         }
       };
+      //End of EchGraph function 
       var colunm = "colunm";
       //console.log(data)
       //EchGraph(chart);
@@ -357,12 +385,14 @@
       var area = "  area";
       var bar = "bar";
       var donut = "donut";
+     
       //_DounutCardCrediteOnline(dataDonutCardCredtOnline);
     </script>
   </head>
   <body>
     
-    <button onclick="  EchGraph(area.trim())  " style="background-color: grey; width: 100px; height: 100px; color: blue;">Area Chart</button>
+    
+    <button onclick="  EchGraph(area.trim()  " style="background-color: grey; width: 100px; height: 100px; color: blue;">Area Chart</button>
     <button onclick="EchGraph(bar.trim())  " style="background-color: greenyellow; width: 100px; height: 100px;">Bar Chart</button>
     <button onclick="EchGraph(colunm.trim())  " style="background-color: orphans: ;; width: 100px; height: 100px;">ColunmChart</button>
     <button onclick="EchGraph(donut.trim())  " style="background-color: green: ;; width: 100px; height: 100px;">DonutChart</button>
